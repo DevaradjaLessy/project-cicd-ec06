@@ -3,9 +3,9 @@
 ## Test automatisé GitHub Actions
 
 - Workflow concerné : 01-ci.yml
-- Lien vers le run réussi : A compléter après exécution
+- Lien vers le run réussi : https://github.com/DevaradjaLessy/project-cicd-ec06/actions/runs/24985970254
 - Ce qui est testé : présence des fichiers requis, syntaxe compose.yml, build Docker, réponse HTTP sur / et /version.json, présence du texte "Projet CICD"
-- Résultat : A compléter après exécution
+- Résultat : Success en 24s
 
 ## Test local Docker
 
@@ -17,12 +17,10 @@ Commandes utilisées :
 
 ```bash
 docker build -t projet-cicd-nginx:local .
-docker run --rm -p 8080:80 projet-cicd-nginx:local
+docker run -d --name test-local -p 8080:80 projet-cicd-nginx:local
 ```
 
-Puis dans un navigateur : http://localhost:8080
-
-Résultat observé : A compléter après test local
+Résultat observé : Le site Catal-Log s'affiche correctement sur http://localhost:8080. La page affiche le titre "Site statique Catal-Log" et le footer "Projet CICD EC06 - Etudiant-EC06 - Version 0.1.0".
 
 ## Simulation de scaling
 
@@ -33,7 +31,13 @@ docker compose up -d --scale web=2
 docker compose ps
 ```
 
-Résultat observé : A compléter après exécution
+Résultat observé :
+- project-cicd-ec06-web-1 : Up (instance 1)
+- project-cicd-ec06-web-2 : Up (instance 2)
+- project-cicd-ec06-whoami-1 : Up (service secondaire)
+- project-cicd-ec06-tester-1 : Up (service de test)
+
+4 conteneurs ont démarré simultanément dont 2 instances du service web.
 
 ## Limites de la simulation
 

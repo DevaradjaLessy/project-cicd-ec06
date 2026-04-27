@@ -17,9 +17,14 @@ Ce projet met en place une chaîne CI/CD complète pour l'entreprise fictive Cat
 
 Le Dockerfile utilise l'image de base nginx:alpine (légère et sécurisée) et copie le contenu du dossier site/ dans le répertoire servi par Nginx. L'image est construite de façon reproductible : le même Dockerfile produit toujours la même image à partir du même code.
 
+Le test local a été réalisé avec Docker Desktop sur Windows :
+- Build : docker build -t projet-cicd-nginx:local .
+- Run : docker run -d --name test-local -p 8080:80 projet-cicd-nginx:local
+- Résultat : site accessible sur http://localhost:8080
+
 ## 4. Orchestration et scaling C13
 
-Le compose.yml décrit trois services : web (Nginx), tester (curl qui vérifie les URLs) et whoami (service secondaire). La simulation de scaling avec `docker compose up --scale web=2` permet de lancer deux instances du service web. Cette simulation montre la coordination de conteneurs mais ne remplace pas une vraie orchestration : absence de load balancer, pas de haute disponibilité, pas de supervision.
+Le compose.yml décrit trois services : web (Nginx), tester (curl qui vérifie les URLs) et whoami (service secondaire). La simulation de scaling avec docker compose up --scale web=2 a lancé deux instances du service web simultanément. Cette simulation montre la coordination de conteneurs mais ne remplace pas une vraie orchestration : absence de load balancer, pas de haute disponibilité, pas de supervision.
 
 ## 5. Automatisation et sécurité C14
 
@@ -40,10 +45,15 @@ Les trois workflows GitHub Actions automatisent l'intégralité de la chaîne. L
 ## 7. Preuves
 
 - Dépôt GitHub : https://github.com/DevaradjaLessy/project-cicd-ec06
-- Runs GitHub Actions : A compléter après exécution
-- Image GHCR : A compléter après publication
-- Tag et digest : A compléter après publication
+- Run 01 CI Build et test : https://github.com/DevaradjaLessy/project-cicd-ec06/actions/runs/24985970254
+- Run 02 Publication GHCR : https://github.com/DevaradjaLessy/project-cicd-ec06/actions/runs/24985970255
+- Run 03 Promotion : https://github.com/DevaradjaLessy/project-cicd-ec06/actions/runs/24986405520
+- Image GHCR : ghcr.io/devaradjalessy/project-cicd-ec06
+- Tag : latest / sha-d41aa59
+- Digest : sha256:1bbab9dfa173f15292c78b70e1230f49bb756f165fe89ff7c342e7e0a7d1cbd9
 
 ## 8. Difficultés et apprentissages
 
-A compléter après réalisation du projet — décrire les difficultés rencontrées et ce qui a été compris techniquement.
+La principale difficulté rencontrée a été la création des fichiers sur Windows avec PowerShell, qui ajoutait des caractères parasites dans les fichiers YAML. La solution a été de générer les fichiers proprement depuis un environnement Linux.
+
+J'ai compris techniquement comment fonctionne une chaîne CI/CD complète : la notion de pipeline automatisé, l'importance du digest pour garantir l'identité d'une image entre les environnements, et la différence entre une promotion (réutilisation d'un artefact existant) et un rebuild (nouvelle construction).
