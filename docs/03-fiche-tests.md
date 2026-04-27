@@ -39,6 +39,47 @@ Résultat observé :
 
 4 conteneurs ont démarré simultanément dont 2 instances du service web.
 
+## Tests complémentaires
+
+### Test 1 — Vérification du fichier version.json
+
+```bash
+curl http://localhost:8080/version.json
+```
+
+Résultat attendu :
+```json
+{
+  "projet": "Projet CICD",
+  "contexte": "EC06 - ASRC",
+  "organisation": "Catal-Log",
+  "auteur": "Etudiant-EC06",
+  "version": "0.1.0",
+  "date": "2026-04-27"
+}
+```
+
+Ce test vérifie que le fichier de version est bien servi par Nginx et que les métadonnées sont correctes.
+
+### Test 2 — Vérification des headers HTTP
+
+```bash
+curl -I http://localhost:8080/
+```
+
+Résultat attendu : HTTP/1.1 200 OK avec le header Server: nginx
+
+Ce test vérifie que c'est bien Nginx qui sert le contenu et que la réponse est correcte.
+
+### Test 3 — Vérification du service whoami
+
+```bash
+docker compose up -d
+curl http://localhost:$(docker inspect --format='{{(index (index .NetworkSettings.Ports "80/tcp") 0).HostPort}}' project-cicd-ec06-whoami-1)/
+```
+
+Ce test vérifie que le second service whoami répond correctement, prouvant la coordination entre conteneurs.
+
 ## Limites de la simulation
 
 - Absence de vrai load balancer : les deux instances web écoutent sur le même port expose, sans répartition de charge réelle.
