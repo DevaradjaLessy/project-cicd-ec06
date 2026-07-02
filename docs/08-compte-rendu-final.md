@@ -45,12 +45,12 @@ Les trois workflows GitHub Actions automatisent l'intégralité de la chaîne. L
 ## 7. Preuves
 
 - Dépôt GitHub : https://github.com/DevaradjaLessy/project-cicd-ec06
-- Run 01 CI Build et test : https://github.com/DevaradjaLessy/project-cicd-ec06/actions/runs/24985970254
-- Run 02 Publication GHCR : https://github.com/DevaradjaLessy/project-cicd-ec06/actions/runs/24985970255
-- Run 03 Promotion : https://github.com/DevaradjaLessy/project-cicd-ec06/actions/runs/24986405520
+- Run 01 CI Build et test : https://github.com/DevaradjaLessy/project-cicd-ec06/actions/runs/28599348170
+- Run 02 Publication GHCR : https://github.com/DevaradjaLessy/project-cicd-ec06/actions/runs/28599350379
+- Run 03 Promotion : https://github.com/DevaradjaLessy/project-cicd-ec06/actions/runs/28599858570
 - Image GHCR : ghcr.io/devaradjalessy/project-cicd-ec06
-- Tag : latest / sha-d41aa59
-- Digest : sha256:1bbab9dfa173f15292c78b70e1230f49bb756f165fe89ff7c342e7e0a7d1cbd9
+- Tag : latest / sha-6acddaa
+- Digest : sha256:c7fd9f4c087153756a09c682e6292388a51065539931af5b45171ecd191ea9d2
 
 ## 8. Difficultés et apprentissages
 
